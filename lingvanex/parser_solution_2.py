@@ -21,6 +21,7 @@ class FileParser:
         self.t_filename = None
 
     def read_source_file(self):
+        """ Reads source file by lines and handles error if file not found """
         try:
             with open(self.filename, encoding='UTF-8') as test_file:
                 self.data = test_file.readlines()
@@ -35,6 +36,7 @@ class FileParser:
             exit()
 
     def store_language_data(self):
+        """ Splits and saves language-based data into a lists, avoiding comment lines and empty lines. """
         for line in self.data:
             if not line.startswith('#') and line != '\n':  # don't need to process unnecessary lines
                 line = line.replace('\n', '')  # to avoid empty lines
@@ -43,6 +45,7 @@ class FileParser:
                 self.translate_data.append([dictionary[1]])
 
     def remove_duplicates_from_line(self):
+        """ Removes duplicate translations if only unique pairs are needed and saves to new lists. """
         for element in self.native_data:
             cleaned_element = list(dict.fromkeys(element[0].split(' ; ')))
             self.native_data_cleaned.append(cleaned_element)
@@ -51,6 +54,11 @@ class FileParser:
             self.translate_data_cleaned.append(cleaned_element)
 
     def determine_file_name(self, exists=False):
+        """ Specifies how to name files in various situations.
+        Certain name is only supported for two languages: en and ru.
+
+        If a file with the same name exists in the directory, it is expanded with a timestamp.
+        """
         self.stamp = calendar.timegm(datetime.utcnow().utctimetuple())
         if exists:
             if self.n_language == 'en':
@@ -73,7 +81,7 @@ class FileParser:
             else:
                 self.t_filename = 't_indefinite'
 
-    def save_to_language_file(self):
+    def create_files_and_write(self):
         with open(f'{self.n_filename}.txt', 'x', encoding='UTF-8') as native_file:
             with open(f'{self.t_filename}.txt', 'x', encoding='UTF-8') as translate_file:
                 n = 0
@@ -84,26 +92,27 @@ class FileParser:
                             translate_file.write(f'{translate_item}\n')
                     n += 1
 
-    def process_errors_and_save(self):
+    def process_errors_when_save(self):
         try:
             self.determine_file_name()
-            self.save_to_language_file()
+            self.create_files_and_write()
             logging.info(' Processed successfully.')
         except FileExistsError:
             self.determine_file_name(exists=True)
-            self.save_to_language_file()
+            self.create_files_and_write()
             logging.warning(f' Files already exists. Stamp {self.stamp} added to filenames.')
             logging.info(' Processed successfully.')
 
     def cook_translation(self):
+        """ Full cycle of creating files with translation without duplication """
         self.read_source_file()
         self.store_language_data()
         self.remove_duplicates_from_line()
-        self.process_errors_and_save()
+        self.process_errors_when_save()
 
 
 if __name__ == "__main__":
-    if len(sys.argv) > 1:
+    if len(sys.argv) > 1:  # supports call argument in command line to select source file
         sys_filename = str(sys.argv[1])
         txt_file = FileParser(sys_filename)
     else:

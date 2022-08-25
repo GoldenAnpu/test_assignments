@@ -16,6 +16,7 @@ class FileParser:
         self.translate_list = None
 
     def read_source_file(self):
+        """ Reads source file by lines and handles error if file not found """
         try:
             with open(self.filename, encoding='UTF-8') as test_file:
                 self.data = test_file.readlines()
@@ -30,6 +31,10 @@ class FileParser:
             exit()
 
     def create_file_to_save(self, language):
+        """ Specifies how to name files in various situations.
+            Creates files with specific names.
+            Specific names are only supported for two languages: en and ru.
+        """
         if language == self.n_language:
             filename_save = 'English'
         elif language == self.t_language:
@@ -48,18 +53,20 @@ class FileParser:
             return file
 
     def remove_duplicates_from_line(self, temp_dictionary, temp_list):
+        """ Removes duplicate translations if only unique pairs are needed and saves to new lists. """
         if temp_list == 'native':
             self.native_list = list(dict.fromkeys(temp_dictionary[0].split(' ; ')))
         elif temp_list == 'translate':
             self.translate_list = list(dict.fromkeys(temp_dictionary[1].split(' ; ')))
 
-    def write_to_language_file(self, native_file, translate_file):
+    def write_to_language_files(self, native_file, translate_file):
         for native_item in self.native_list:
             for translate_item in self.translate_list:
                 native_file.write(f'{native_item}\n')
                 translate_file.write(f'{translate_item}\n')
 
     def cook_translation(self):
+        """ Full cycle of preparing files with translation without duplication """
         native_file = self.create_file_to_save(self.n_language)
         translate_file = self.create_file_to_save(self.t_language)
         for line in self.data:
@@ -68,14 +75,14 @@ class FileParser:
                 dictionary = line.split('\t')
                 self.remove_duplicates_from_line(dictionary, 'native')
                 self.remove_duplicates_from_line(dictionary, 'translate')
-                self.write_to_language_file(native_file, translate_file)
+                self.write_to_language_files(native_file, translate_file)
         native_file.close()
         translate_file.close()
         logging.info(' Processed successfully')
 
 
 if __name__ == "__main__":
-    if len(sys.argv) > 1:
+    if len(sys.argv) > 1:  # supports call argument in command line to select source file
         sys_filename = str(sys.argv[1])
         txt_file = FileParser(sys_filename)
     else:
