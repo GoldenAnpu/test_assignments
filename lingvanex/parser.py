@@ -1,18 +1,20 @@
 from datetime import datetime
 import calendar
+import logging
 
 
 class FileParser:
-    def __init__(self, filename):
+    def __init__(self, filename='PythonTest.txt'):
         self.filename = filename
         self.native = 'en'
         self.translate = 'ru'
+        self.data = None
 
     def read_file(self):
         try:
             with open(self.filename, encoding='UTF-8') as test_file:
-                lines_list = test_file.readlines()
-                return lines_list
+                self.data = test_file.readlines()
+                return self.data
         except FileNotFoundError:
             print(f'\nPlease drop {self.filename} file in the same directory as parser.py and run again')
             exit()
@@ -32,15 +34,13 @@ class FileParser:
         translate_file.close()
         print('Done')
 
-    @staticmethod
-    def write_to_language_file(native_list, translate_list, native_file, translate_file):
+    def write_to_language_file(self, native_list, translate_list, native_file, translate_file):
         for native_item in native_list:
             for translate_item in translate_list:
                 native_file.write(f'{native_item}\n')
                 translate_file.write(f'{translate_item}\n')
 
-    @staticmethod
-    def create_file_to_save(language):
+    def create_file_to_save(self, language):
         if language == 'en':
             filename_save = 'English'
         elif language == 'ru':
@@ -59,5 +59,6 @@ class FileParser:
             return file
 
 
-txt_file = FileParser('PythonTest.txt')
-txt_file.cook_translation()
+if __name__ == '__main__':
+    txt_file = FileParser()
+    txt_file.cook_translation()
