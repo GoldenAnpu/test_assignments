@@ -7,7 +7,7 @@ logging.basicConfig(level=logging.DEBUG)
 
 
 class FileParser:
-    def __init__(self, filename='PythonTest.txt', native='en', translate='ru'):
+    def __init__(self, filename, native='en', translate='ru'):
         self.filename = filename
         self.n_language = native
         self.t_language = translate
@@ -78,9 +78,10 @@ if __name__ == "__main__":
     if len(sys.argv) > 1:
         sys_filename = str(sys.argv[1])
         txt_file = FileParser(sys_filename)
-        txt_file.read_source_file()
-        txt_file.cook_translation()
     else:
         txt_file = FileParser('PythonTest.txt')
-        txt_file.read_source_file()
-        txt_file.cook_translation()
+    txt_file.read_source_file()
+    txt_file.cook_translation()
+
+
+
