@@ -100,7 +100,7 @@ class FileParser:
         except FileExistsError:
             self.determine_file_name(exists=True)
             self.create_files_and_write()
-            logging.warning(f' Files already exists. Stamp {self.stamp} added to filenames.')
+            logging.warning(f' Files already exist. Stamp {self.stamp} added to filenames.')
             logging.info(' Processed successfully.')
 
     def cook_translation(self):
