@@ -17,7 +17,7 @@ class FileParser:
             print(f'\nPlease drop {self.filename} file in the same directory as parser.py and run again')
             exit()
 
-    def split_lines_by_language(self):
+    def cook_translation(self):
         lines_list = self.read_file()
         native_file = self.create_file_to_save(self.native)
         translate_file = self.create_file_to_save(self.translate)
@@ -27,11 +27,17 @@ class FileParser:
                 dictionary = line.split('\t')
                 native_list = list(dict.fromkeys(dictionary[0].split(' ; ')))  # remove duplicates after splitting
                 translate_list = list(dict.fromkeys(dictionary[1].split(' ; ')))  # remove duplicates after splitting
-                for native_item in native_list:
-                    for translate_item in translate_list:
-                        native_file.write(f'{native_item}\n')
-                        translate_file.write(f'{translate_item}\n')
+                self.write_to_language_file(native_list, translate_list, native_file, translate_file)
+        native_file.close()
+        translate_file.close()
         print('Done')
+
+    @staticmethod
+    def write_to_language_file(native_list, translate_list, native_file, translate_file):
+        for native_item in native_list:
+            for translate_item in translate_list:
+                native_file.write(f'{native_item}\n')
+                translate_file.write(f'{translate_item}\n')
 
     @staticmethod
     def create_file_to_save(language):
@@ -54,4 +60,4 @@ class FileParser:
 
 
 txt_file = FileParser('PythonTest.txt')
-txt_file.split_lines_by_language()
+txt_file.cook_translation()
