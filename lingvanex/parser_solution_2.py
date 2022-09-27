@@ -21,7 +21,7 @@ class FileParser:
         self.t_filename = None
 
     def read_source_file(self):
-        """ Reads source file by lines and handles error if file not found """
+        """ Read source file by lines and handles error if file not found """
         try:
             with open(self.filename, encoding='UTF-8') as test_file:
                 self.data = test_file.readlines()
@@ -36,7 +36,7 @@ class FileParser:
             exit()
 
     def store_language_data(self):
-        """ Splits and saves language-based data into a lists, avoiding comment lines and empty lines. """
+        """ Split and save language-based data into a lists, avoiding comment lines and empty lines. """
         for line in self.data:
             if not line.startswith('#') and line != '\n':  # don't need to process unnecessary lines
                 line = line.replace('\n', '')  # to avoid empty lines
@@ -45,7 +45,7 @@ class FileParser:
                 self.translate_data.append([dictionary[1]])
 
     def remove_duplicates_from_line(self):
-        """ Removes duplicate translations if only unique pairs are needed and saves to new lists. """
+        """ Remove duplicate translations if only unique pairs are needed and saves to new lists. """
         for element in self.native_data:
             cleaned_element = list(dict.fromkeys(element[0].split(' ; ')))
             self.native_data_cleaned.append(cleaned_element)
@@ -54,7 +54,7 @@ class FileParser:
             self.translate_data_cleaned.append(cleaned_element)
 
     def determine_file_name(self, exists=False):
-        """ Specifies how to name files in various situations.
+        """ Specify how to name files in various situations.
         Certain name is only supported for two languages: en and ru.
 
         If a file with the same name exists in the directory, it is expanded with a timestamp.
@@ -112,7 +112,7 @@ class FileParser:
 
 
 if __name__ == "__main__":
-    if len(sys.argv) > 1:  # supports call argument in command line to select source file
+    if len(sys.argv) > 1:  # support call argument in command line to select source file
         sys_filename = str(sys.argv[1])
         txt_file = FileParser(sys_filename)
     else:
