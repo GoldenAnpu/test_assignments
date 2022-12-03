@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "islinker"
+version = "0.1.0"
+description = "CLI tool for detection web links and collecting its working http methods, subsequently returns dictionary with collected results."
+authors = ["GoldenAnpu <seryios.sych@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pytest = "^7.2.0"
+coverage = "^6.5.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
