@@ -7,5 +7,5 @@ This catalog store all my test assignments which were done for various companies
 
 ### Сontents
 
-<a href="https://github.com/GoldenAnpu/test_assignments/tree/master/lingvanex">lingvanex</a> - processing file with unformatted translation to create readable dictionary
-<a href="https://github.com/GoldenAnpu/test_assignments/tree/master/rochers">rochers</a> - finds links and checks its working methods
+* <a href="https://github.com/GoldenAnpu/test_assignments/tree/master/lingvanex">lingvanex</a> - processing file with unformatted translation to create readable dictionary
+* <a href="https://github.com/GoldenAnpu/test_assignments/tree/master/rochers">rochers</a> - finds links and checks its working methods
