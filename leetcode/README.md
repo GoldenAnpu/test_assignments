@@ -1,4 +1,23 @@
-**202. Happy Number**
+[My Leetcode page](https://leetcode.com/ganpoweird/)
+
+### **Solved Problems:**
+* [**202. Happy Number**](#202-happy-number)
+* [**54. Spiral Matrix**](#54-spiral-matrix)
+* [**14. Longest Common Prefix**](#14-longest-common-prefix)
+* [**43. Multiply Strings**](#43-multiply-strings)
+* [**19. Remove Nth Node From End of List**](#19-remove-nth-node-from-end-of-list)
+* [**234. Palindrome Linked List**](#234-palindrome-linked-list)
+* [**977. Squares of a Sorted Array**](#977-squares-of-a-sorted-array)
+* [**189. Rotate Array**](#189-rotate-array)
+* [**175. Combine Two Tables**](#175-combine-two-tables)
+* [**66. Plus One**](#66-plus-one)
+* [**658. Find K Closest Elements**](#658-find-k-closest-elements)
+* [**459. Repeated Substring Pattern**](#459-repeated-substring-pattern)
+* [**896. Monotonic Array**](#896-monotonic-array)
+* [**28. Find the Index of the First Occurrence in a String**](#28-find-the-index-of-the-first-occurrence-in-a-string)
+
+
+#### 202. Happy Number
 
 Write an algorithm to determine if a number n is happy.
 
@@ -31,7 +50,7 @@ Constraints:
 
 ---- 
 
-**54. Spiral Matrix**
+#### 54. Spiral Matrix
 
 Given an m x n matrix, return all elements of the matrix in spiral order.
 
@@ -59,7 +78,7 @@ Constraints:
 * `-100 <= matrix[i][j] <= 100`
 ----
 
-**14. Longest Common Prefix**
+#### 14. Longest Common Prefix
 
 Write a function to find the longest common prefix string amongst an array of strings.
 
@@ -86,7 +105,7 @@ Constraints:
 * `strs[i]` consists of only lowercase English letters.
 ----
 
-**43. Multiply Strings**
+#### 43. Multiply Strings
 
 Given two non-negative integers num1 and num2 represented as strings, return the product of num1 and num2, also represented as a string.
 
@@ -109,7 +128,7 @@ Constraints:
 
 ----
 
-**19. Remove Nth Node From End of List**
+#### 19. Remove Nth Node From End of List
 
 Given the head of a linked list, remove the nth node from the end of the list and return its head.
 
@@ -138,7 +157,7 @@ Follow up: Could you do this in one pass?
 
 ----
 
-**234. Palindrome Linked List**
+#### 234. Palindrome Linked List
 
 Given the head of a singly linked list, return true if it is a 
 palindrome or false otherwise.
@@ -169,7 +188,7 @@ Follow up: Could you do it in O(n) time and O(1) space?
 
 ----
 
-**977. Squares of a Sorted Array**
+#### 977. Squares of a Sorted Array
 
 Given an integer array nums sorted in non-decreasing order, return an array of the squares of each number sorted in non-decreasing order.
  
@@ -194,7 +213,7 @@ Constraints:
 Follow up: Squaring each element and sorting the new array is very trivial, could you find an O(n) solution using a different approach?
 
 ----
-**189. Rotate Array**
+#### 189. Rotate Array 
 
 Given an integer array nums, rotate the array to the right by k steps, where k is non-negative.
 
@@ -227,7 +246,7 @@ Could you do it in-place with O(1) extra space?
 
 ----
 
-**175. Combine Two Tables**
+#### 175. Combine Two Tables
 
 Table: Person
 
@@ -303,14 +322,11 @@ Example 1:
 
 ----
 
-**66. Plus One**
-
+#### 66. Plus One
 
 You are given a large integer represented as an integer array digits, where each `digits[i]` is the ith digit of the integer. The digits are ordered from most significant to the least significant in left-to-right order. The large integer does not contain any leading 0's.
 
 Increment the large integer by one and return the resulting array of digits.
-
- 
 
 Example 1:
 * Input: `digits = [1,2,3]`
@@ -345,8 +361,7 @@ Constraints:
 
 ----
 
-**658. Find K Closest Elements**
-
+#### 658. Find K Closest Elements
 
 Given a sorted integer array `arr`, two integers `k` and `x`, return the `k` closest integers to `x` in the array. The result should also be sorted in ascending order.
 
@@ -372,8 +387,7 @@ Constraints:
 
 ----
 
-**459. Repeated Substring Pattern**
-
+#### 459. Repeated Substring Pattern
 
 Given a string s, check if it can be constructed by taking a substring of it and appending multiple copies of the substring together.
 
@@ -399,7 +413,7 @@ Constraints:
 
 ----
 
-**896. Monotonic Array**
+#### 896. Monotonic Array
 
 An array is monotonic if it is either monotone increasing or monotone decreasing.
 
@@ -425,12 +439,9 @@ Constraints:
 
 ----
 
-**28. Find the Index of the First Occurrence in a String**
-
+#### 28. Find the Index of the First Occurrence in a String
 
 Given two strings needle and haystack, return the index of the first occurrence of needle in haystack, or -1 if needle is not part of haystack.
-
- 
 
 Example 1:
 
