@@ -15,6 +15,7 @@
 * [**459. Repeated Substring Pattern**](#459-repeated-substring-pattern)
 * [**896. Monotonic Array**](#896-monotonic-array)
 * [**28. Find the Index of the First Occurrence in a String**](#28-find-the-index-of-the-first-occurrence-in-a-string)
+* [**328. Odd Even Linked List**](#328-odd-even-linked-list)
 
 
 #### 202. Happy Number
@@ -56,7 +57,7 @@ Given an m x n matrix, return all elements of the matrix in spiral order.
 
 Example 1:
 
-<img src="https://assets.leetcode.com/uploads/2020/11/13/spiral1.jpg" alt=""/>
+<img src="https://assets.leetcode.com/uploads/2020/11/13/spiral1.jpg" height="120" alt=""/>
 
 
 * Input: `matrix = [[1,2,3],[4,5,6],[7,8,9]]` 
@@ -64,7 +65,7 @@ Example 1:
 
 Example 2:
 
-<img src="https://assets.leetcode.com/uploads/2020/11/13/spiral.jpg" alt=""/>
+<img src="https://assets.leetcode.com/uploads/2020/11/13/spiral.jpg" height="120" alt=""/>
 
 * Input: `matrix = [[1,2,3,4],[5,6,7,8],[9,10,11,12]]`
 * Output: `[1,2,3,4,8,12,11,10,9,5,6,7]`
@@ -133,7 +134,9 @@ Constraints:
 Given the head of a linked list, remove the nth node from the end of the list and return its head.
 
 Example 1:
-<img src="https://assets.leetcode.com/uploads/2020/10/03/remove_ex1.jpg" alt=""/>
+
+<img src="https://assets.leetcode.com/uploads/2020/10/03/remove_ex1.jpg" height="100" alt=""/>
+
 * Input: `head = [1,2,3,4,5], n = 2`
 * Output: `[1,2,3,5]`
 
@@ -166,14 +169,14 @@ palindrome or false otherwise.
 
 Example 1:
 
-<img src="https://assets.leetcode.com/uploads/2021/03/03/pal1linked-list.jpg" alt=""/>
+<img src="https://assets.leetcode.com/uploads/2021/03/03/pal1linked-list.jpg" height="30" alt=""/>
 
 * Input: `head = [1,2,2,1]`
 * Output: `true`
 
 Example 2:
 
-<img src="https://assets.leetcode.com/uploads/2021/03/03/pal2linked-list.jpg" alt=""/>
+<img src="https://assets.leetcode.com/uploads/2021/03/03/pal2linked-list.jpg" height="30" alt=""/>
 
 * Input: `head = [1,2]`
 * Output: `false`
@@ -460,3 +463,33 @@ Example 2:
 Constraints:
 * `1 <= haystack.length, needle.length <= 104`
 * `haystack` and `needle` consist of only lowercase English characters.
+
+----
+
+#### 328. Odd Even Linked List
+
+Given the head of a singly linked list, group all the nodes with odd indices together followed by the nodes with even indices, and return the reordered list.
+
+The first node is considered odd, and the second node is even, and so on.
+
+Note that the relative order inside both the even and odd groups should remain as it was in the input.
+
+You must solve the problem in O(1) extra space complexity and O(n) time complexity.
+
+Example 1:
+
+<img src="https://assets.leetcode.com/uploads/2021/03/10/oddeven-linked-list.jpg" height="100" alt="">
+
+* Input: `head = [1,2,3,4,5]`
+* Output: `[1,3,5,2,4]`
+
+Example 2:
+
+<img src="https://assets.leetcode.com/uploads/2021/03/10/oddeven2-linked-list.jpg" height="100" alt="">
+
+* Input: `head = [2,1,3,5,6,4,7]`
+* Output: `[2,3,6,7,1,5,4]`
+
+Constraints:
+* The number of nodes in the linked list is in the range `[0, 104]`.
+* `-106 <= Node.val <= 106`
