@@ -16,6 +16,7 @@
 * [**896. Monotonic Array**](#896-monotonic-array)
 * [**28. Find the Index of the First Occurrence in a String**](#28-find-the-index-of-the-first-occurrence-in-a-string)
 * [**328. Odd Even Linked List**](#328-odd-even-linked-list)
+* [**148. Sort List**](#148-sort-list)
 
 
 #### 202. Happy Number
@@ -493,3 +494,35 @@ Example 2:
 Constraints:
 * The number of nodes in the linked list is in the range `[0, 104]`.
 * `-106 <= Node.val <= 106`
+
+----
+
+#### 148. Sort List
+
+Given the head of a linked list, return the list after sorting it in ascending order.
+
+Example 1:
+
+<img src="https://assets.leetcode.com/uploads/2020/09/14/sort_list_1.jpg" height="100" alt="">
+
+* Input: `head = [4,2,1,3]`
+* Output: `[1,2,3,4]`
+
+Example 2:
+
+<img src="https://assets.leetcode.com/uploads/2020/09/14/sort_list_2.jpg" height="100" alt="">
+
+* Input: `head = [-1,5,3,4,0]`
+* Output: `[-1,0,3,4,5]`
+
+Example 3:
+* Input: `head = []`
+* Output: `[]`
+ 
+
+Constraints:
+* The number of nodes in the list is in the range `[0, 5 * 104]`.
+* `-105 <= Node.val <= 105`
+ 
+
+Follow up: Can you sort the linked list in O(n logn) time and O(1) memory (i.e. constant space)?
