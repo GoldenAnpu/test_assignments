@@ -2,6 +2,7 @@ import logging
 import cv2
 import os
 import numpy as np
+import time
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -19,6 +20,20 @@ def create_dir(dir_name: str) -> str:
     return dir_name
 
 
+def is_input_data_exist(input_directory: str) -> bool:
+    """
+    Checks input directory for data existence
+
+    :params:
+    :param input_directory: input directory with data
+    :return: "True" if exists, "False" if absent
+    """
+    if os.listdir(input_directory):
+        return True
+    else:
+        return False
+
+
 def get_image_size(image_name: str) -> tuple[int, int, np.ndarray]:
     """
     Gathers height and width of source image
@@ -29,7 +44,7 @@ def get_image_size(image_name: str) -> tuple[int, int, np.ndarray]:
     """
     image_ndarray = cv2.imread(image_name)
     height, width, _ = image_ndarray.shape
-    return height, width, image
+    return height, width, image_ndarray
 
 
 def input_and_prepare_values(img_h: int, img_w: int) -> list[int]:
@@ -154,11 +169,20 @@ one_back_to_dir = '../'
 
 if __name__ == "__main__":
     # check images with different types and the same names
+    for folder in [input_dir, output_dir]:
+        create_dir(folder)
+
+    check = is_input_data_exist(input_dir)
+    while check is False:
+        check = is_input_data_exist(input_dir)
+        input("There is no data to process. Place data in 'input' folder and press Enter.")
+
     os.chdir(input_dir)
     file_names = os.listdir()
     for img_file in file_names:
         image_h, image_w, image = get_image_size(img_file)
         logging.info(f' Starting to split image "{img_file}" with {image_w}x{image_h} sizes')
+        time.sleep(1)
         h, w, y, x = input_and_prepare_values(image_h, image_w)
         h, w, y, x = tidy_up_window_params(h, w, y, x, image_h, image_w)
         image_folder_name = img_file.replace('.', '__')  # saves type of image in the output folder name
