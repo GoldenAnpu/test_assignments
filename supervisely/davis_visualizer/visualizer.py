@@ -1,3 +1,4 @@
+import logging
 import urllib.request
 import zipfile
 import cv2
@@ -5,13 +6,22 @@ import numpy as np
 import os
 from PIL import Image
 
-url = "https://data.vision.ee.ethz.ch/csergi/share/davis/DAVIS-2017-Unsupervised-trainval-480p.zip"  # replace with
-# the URL of the archive you want to download
-filename = url.split('/')[-1]  # name of the archive file
+
+logging.basicConfig(level=logging.INFO)
 
 
+# ------------------------- OPTIONAL -------------------------
 # Download file
-def download_and_show_progress(davis_url, file_name):
+def download_and_show_progress(davis_url: str) -> str:
+    """
+    Downloads archive using predefined URL
+
+    :params:
+        :param davis_url: url of archive
+        :return: print process info and return file_name for extracting
+    """
+    file_name = davis_url.split('/')[-1]
+    logging.info(f' Starting to download file "{file_name}"')
     with urllib.request.urlopen(davis_url) as response, open(file_name, 'wb') as out_file:
         length = response.getheader('content-length')
         if length:
@@ -29,32 +39,31 @@ def download_and_show_progress(davis_url, file_name):
                 percent = int(progress * 100)
                 print(f"\r{percent}% downloaded", end='')
 
-    print("\nDownload complete")
+    logging.info(f' Downloading complete!')
+    return file_name
 
 
 # Extract file
-def extract_all(file_name):
-    with zipfile.ZipFile(file_name, 'r') as zip_ref:
-        zip_ref.extractall(path='input')
-
-
-# Directories
-annotations_dir = 'input/DAVIS/Annotations_unsupervised/480p/'  # depends on the hierarchy in the archive
-source_images_dir = 'input/DAVIS/JPEGImages/480p/'  # depends on the hierarchy in the archive
-output_main_dir = 'output/'
-prepared_annotations_dir = 'output/prepared_annotations/'
-masked_images_dir = 'output/masked_images/'
-contours_dir = 'output/contours/'
-contoured_images_dir = 'output/contoured_images/'
-resized_images_dir = 'output/resized_images/'
-videos_dir = 'output/videos/'
-
-
-def create_dir(dir_name: str):
+def extract_all(file_name: str, output_path: str):
     """
-    Checks existence of directory, creates if it doesn't exist.
+    Extracts data from archive on specified directory
 
-    :param dir_name: name for dir.
+    :params:
+        :param file_name: archive name
+        :param output_path: where to place extracted data
+    """
+    with zipfile.ZipFile(file_name, 'r') as zip_ref:
+        zip_ref.extractall(path=output_path)
+
+
+# --------------------------- MAIN ---------------------------
+def create_dir(dir_name: str) -> str:
+    """
+    Checks existence of directory, creates if it doesn't exist
+
+    :params:
+        :param dir_name: name for dir
+        :return: dir_name for the following operations
     """
     if not os.path.exists(dir_name):
         os.mkdir(dir_name)
@@ -63,11 +72,13 @@ def create_dir(dir_name: str):
 
 def remove_black_background_in_annotation(input_dir: str, output_dir: str):
     """
-    Deletes black background in annotation files and saves with transparent one in new place.
+    Deletes black background in annotation files and saves with transparent one in new place
 
-    :param input_dir: directory with annotation images.
-    :param output_dir: new directory where output file will be saved.
+    :params:
+        :param input_dir: directory with annotation images
+        :param output_dir: new directory where output file will be saved
     """
+    logging.info(f' Removing of black background in annotations started')
     save_dir = create_dir(output_dir)
     for directory in os.listdir(input_dir):
         save_subdir = create_dir(f'{save_dir}{directory}/')
@@ -84,17 +95,19 @@ def remove_black_background_in_annotation(input_dir: str, output_dir: str):
             rgba[:, :, 3] = mask
             save_name = f'{save_subdir}{file}'
             cv2.imwrite(save_name, rgba)
+    logging.info(f' Removing of black background in annotations finished')
 
 
 def merge_image_and_annotation_opencv(intput_image_dir: str, input_mask_dir: str, output_dir: str):
     """
-    Merges source image from sequence with prepared mask and saves as new image.
+    Merges source image from sequence with prepared mask and saves as new image
 
-    :param intput_image_dir: directory with source images.
-    :param input_mask_dir: directory with annotation images.
-    :param output_dir: new directory where annotated images will be saved.
+    :params:
+        :param intput_image_dir: directory with source images
+        :param input_mask_dir: directory with annotation images
+        :param output_dir: new directory where annotated images will be saved
     """
-
+    logging.info(f' Merging of images and annotations started')
     save_dir = create_dir(output_dir)
     for directory in os.listdir(intput_image_dir):
         save_subdir = create_dir(f'{save_dir}{directory}/')
@@ -104,15 +117,18 @@ def merge_image_and_annotation_opencv(intput_image_dir: str, input_mask_dir: str
             overlay = cv2.addWeighted(jpg_image, 1, png_image, 1, 0)
             save_name = f'{save_subdir}{file}'
             cv2.imwrite(save_name, overlay)
+    logging.info(f' Merging of images and annotations finished')
 
 
 def create_contour_for_annotation(input_dir: str, output_dir: str):
     """
-    Draws contour for object in image file with transparent background.
+    Draws contour for object in image file with transparent background
 
-    :param input_dir: directory with annotation images.
-    :param output_dir: new directory where contour images will be saved.
+    :params:
+        :param input_dir: directory with annotation images
+        :param output_dir: new directory where contour images will be saved
     """
+    logging.info(f' Merging of images and annotations started')
     save_dir = create_dir(output_dir)
     for directory in os.listdir(input_dir):
         save_subdir = create_dir(f'{save_dir}{directory}/')
@@ -133,16 +149,19 @@ def create_contour_for_annotation(input_dir: str, output_dir: str):
             # Save the black contour as a PNG image
             save_name = f'{save_subdir}{file}'
             cv2.imwrite(save_name, image)
+    logging.info(f' Merging of images and annotations finished')
 
 
 def merge_image_and_contour_pil(intput_image_dir: str, input_contour_dir: str, output_dir: str):
     """
-    Merges masked image from sequence with contour for its mask and saves as new image.
+    Merges masked image from sequence with contour for its mask and saves as new image
 
-    :param intput_image_dir: directory with masked images.
-    :param input_contour_dir: directory with contour images.
-    :param output_dir: new directory where contoured images will be saved.
+    :params:
+        :param intput_image_dir: directory with masked images
+        :param input_contour_dir: directory with contour images
+        :param output_dir: new directory where contoured images will be saved
     """
+    logging.info(f' Merging of annotated images and contours started')
     save_dir = create_dir(output_dir)
     for directory in os.listdir(intput_image_dir):
         save_subdir = create_dir(f'{save_dir}{directory}/')
@@ -152,9 +171,17 @@ def merge_image_and_contour_pil(intput_image_dir: str, input_contour_dir: str, o
             jpg_image.paste(png_image, (0, 0), png_image)
             save_name = f'{save_subdir}{file}'
             jpg_image.save(save_name)
+    logging.info(f' Merging of annotated images and contours finished')
 
 
-def get_min_width_of_images(source_catalog):
+def get_min_width_of_images(source_catalog: str) -> int:
+    """
+    Checks width in all source images
+
+    :params:
+        :param source_catalog: catalog with source images
+        :return: min_width - the smallest width of all images
+    """
     directories = os.listdir(source_catalog)
     min_width = set()
     for directory in directories:
@@ -166,9 +193,18 @@ def get_min_width_of_images(source_catalog):
     return min_width
 
 
-def resize_prepared_jpgs(source_dir, output_dir, min_width):
+def resize_prepared_jpgs(source_dir: str, output_dir: str, min_width: int):
+    """
+    Resizes all images that are ready for creating video from sequence
+
+    :params:
+        :param source_dir: source dir
+        :param output_dir: output dir
+        :param min_width: the smallest width of all images
+    """
     dir_list = os.listdir(source_dir)
     output_dir_name = create_dir(output_dir)
+    logging.info(f' Resizing of prepared images started')
     # Load image
     for directory in dir_list:
         create_dir(output_dir_name + directory)
@@ -187,21 +223,55 @@ def resize_prepared_jpgs(source_dir, output_dir, min_width):
             resized_img = np.pad(resized_img, pads, mode='constant', constant_values=0)
             # Save resized image
             cv2.imwrite(f'{output_dir_name}{directory}/{file}', resized_img)
+    logging.info(f' Resizing of prepared images finished')
+
+
+def is_input_data_exist(input_dir: str) -> bool:
+    """
+    Checks input directory for data existence
+
+    :params:
+    :param input_dir: input directory with data
+    :return: "True" if exists, "False" if absent
+    """
+    if os.listdir(input_dir):
+        return True
+    else:
+        return False
 
 
 def check_input_data_consistency():
+    """
+    Checks consistency of input data
+
+    :return: raises error FileNotFoundError if not consistent
+    """
     if os.listdir(annotations_dir) != os.listdir(source_images_dir):
         raise FileNotFoundError
 
 
-def convert_sequence_to_video(source_dir, output_dir):
+def convert_sequence_to_video(input_dir: str, output_dir: str):
+    """
+    Creates videos from images
+
+    :params:
+        :param input_dir: dir with resized images
+        :param output_dir: dir where videos will be saved
+    """
     save_dir = create_dir(output_dir)
-    for catalog in os.listdir(source_dir):
-        process = f'ffmpeg -i {source_dir}{catalog}/000%02d.jpg -framerate 20 {save_dir}{catalog}.mp4 -y'
+    for catalog in os.listdir(input_dir):
+        process = f'ffmpeg -i {input_dir}{catalog}/000%02d.jpg -framerate 20 {save_dir}{catalog}.mp4 -y'
         os.system(process)
 
 
-def merge_videos_ffmpeg(input_dir, output_dir):
+def merge_videos_ffmpeg(input_dir: str, output_dir: str):
+    """
+    Creates final video from videos
+
+    :params:
+        :param input_dir: dir with videos
+        :param output_dir: output dir where final video will be saved
+    """
     list_of_files = os.listdir(input_dir)
     num_of_files = len(list_of_files)
     input_string = ''
@@ -211,7 +281,32 @@ def merge_videos_ffmpeg(input_dir, output_dir):
     os.system(process)
 
 
+# Replace with the URL of the archive you want to download
+url = "https://data.vision.ee.ethz.ch/csergi/share/davis/DAVIS-2017-Unsupervised-trainval-480p.zip"
+
+# --------------------------- DIRECTORIES ---------------------------
+input_directory = 'input/'
+annotations_dir = 'input/DAVIS/Annotations_unsupervised/480p/'  # depends on the hierarchy in the archive
+source_images_dir = 'input/DAVIS/JPEGImages/480p/'  # depends on the hierarchy in the archive
+output_main_dir = 'output/'
+prepared_annotations_dir = 'output/prepared_annotations/'
+masked_images_dir = 'output/masked_images/'
+contours_dir = 'output/contours/'
+contoured_images_dir = 'output/contoured_images/'
+resized_images_dir = 'output/resized_images/'
+videos_dir = 'output/videos/'
+
+
+# ---------------------------- EXECUTION ----------------------------
 if __name__ == "__main__":
+    for folder in [input_directory, output_main_dir]:
+        create_dir(folder)
+
+    check = is_input_data_exist(input_directory)
+    while check is False:
+        check = is_input_data_exist(input_directory)
+        input("There is no data to process. Place 'DAVIS' folder from archive in 'input' folder and press Enter.")
+
     check_input_data_consistency()
     remove_black_background_in_annotation(annotations_dir, prepared_annotations_dir)
     merge_image_and_annotation_opencv(source_images_dir, prepared_annotations_dir, masked_images_dir)
