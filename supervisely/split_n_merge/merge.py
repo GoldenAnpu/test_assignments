@@ -3,6 +3,7 @@ import cv2
 import os
 import numpy as np
 import shutil
+from split import create_dir
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -147,8 +148,10 @@ input_dir = 'output_split/'
 output_dir = 'output_merged/'
 
 if __name__ == "__main__":
+    create_dir(output_dir)
     prepared_folders = prepare_split_sub_folders()
     for folder in prepared_folders:
+        logging.info(f' Starting to merge pieces of image "{folder}"')
         files = os.listdir(input_dir + folder)
         first_file = files[0]
         window_size_h, window_size_w = get_params(first_file, 'window')
