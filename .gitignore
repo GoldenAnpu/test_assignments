@@ -3,8 +3,9 @@
 .coverage
 htmlcov
 draft.py
-supervisely/split_n_merge/input/*
-supervisely/split_n_merge/output_merged/*
-supervisely/split_n_merge/output_split/*
-supervisely/davis_visualizer/input/*
-supervisely/davis_visualizer/output/*
+supervisely/split_n_merge/input
+supervisely/split_n_merge/output_merged
+supervisely/split_n_merge/output_split
+supervisely/davis_visualizer/input
+supervisely/davis_visualizer/output
+asyncio_downloader
