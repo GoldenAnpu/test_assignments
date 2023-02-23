@@ -4,7 +4,7 @@ import os
 import numpy as np
 import time
 
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.INFO)
 
 
 def create_dir(dir_name: str) -> str:
@@ -20,18 +20,15 @@ def create_dir(dir_name: str) -> str:
     return dir_name
 
 
-def is_input_data_exist(input_directory: str) -> bool:
+def does_input_data_exist(input_directory: str) -> bool:
     """
     Checks input directory for data existence
 
     :params:
     :param input_directory: input directory with data
-    :return: "True" if exists, "False" if absent
+    :return: "True" if it exists, "False" if it doesn't
     """
-    if os.listdir(input_directory):
-        return True
-    else:
-        return False
+    return bool(os.listdir(input_directory))
 
 
 def get_image_size(image_name: str) -> tuple[int, int, np.ndarray]:
@@ -172,9 +169,7 @@ if __name__ == "__main__":
     for folder in [input_dir, output_dir]:
         create_dir(folder)
 
-    check = is_input_data_exist(input_dir)
-    while check is False:
-        check = is_input_data_exist(input_dir)
+    while not does_input_data_exist(input_dir):
         input("There is no data to process. Place data in 'input' folder and press Enter.")
 
     os.chdir(input_dir)
