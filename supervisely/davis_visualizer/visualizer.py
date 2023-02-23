@@ -226,18 +226,15 @@ def resize_prepared_jpgs(source_dir: str, output_dir: str, min_width: int):
     logging.info(f' Resizing of prepared images finished')
 
 
-def is_input_data_exist(input_dir: str) -> bool:
+def does_input_data_exist(source_dir: str) -> bool:
     """
     Checks input directory for data existence
 
     :params:
-    :param input_dir: input directory with data
-    :return: "True" if exists, "False" if absent
+    :param source_dir: input directory with data
+    :return: "True" if it exists, "False" if it doesn't
     """
-    if os.listdir(input_dir):
-        return True
-    else:
-        return False
+    return bool(os.listdir(source_dir))
 
 
 def check_input_data_consistency():
@@ -302,9 +299,7 @@ if __name__ == "__main__":
     for folder in [input_directory, output_main_dir]:
         create_dir(folder)
 
-    check = is_input_data_exist(input_directory)
-    while check is False:
-        check = is_input_data_exist(input_directory)
+    while not does_input_data_exist(input_directory):
         input("There is no data to process. Place 'DAVIS' folder from archive in 'input' folder and press Enter.")
 
     check_input_data_consistency()
