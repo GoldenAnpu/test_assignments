@@ -71,4 +71,5 @@ since this approach better than creation from summ of image sequences for exampl
 6. Debugging/Testing: 90 minutes
 7. Refactoring: 65 minutes
 8. Preparing report: 40 minutes
+
 Overall max: 470 minutes ~ 7.8 hours
