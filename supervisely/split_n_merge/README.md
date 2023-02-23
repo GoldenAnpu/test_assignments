@@ -52,7 +52,7 @@ It is necessary to **verify** that the **pixels** in the resulting image match t
 17. Loops through pieces of the image and gets their offsets from file names and pastes these pieces into the canvas.
 18. Saves the image and checks the difference between the source file from "input" and the saved one.
 
-### Thoughts
+### Results and Thoughts
 * For the **4**th paragraph, it would be great to add a check for files that OpenCV can handle.
 * For the **5**th paragraph, it would be great to add a switch to choose how to use parameters for the rest of the images.
 * Add an option to choose the sliding window type (with or without a border) and implement it in both the split and merge scripts.
@@ -68,7 +68,7 @@ It is necessary to **verify** that the **pixels** in the resulting image match t
 3. Code writing: 40 minutes
 4. Clarification of questions: 10 minutes
 5. Making changes: 20 minutes
-6. Debugging: 40-60 minutes
+6. Debugging/Testing: 40-60 minutes
 7. Refactoring: 50 minutes
 8. Preparing report: 40 minutes
 Overall max: 315 minutes = 5.25 hours
