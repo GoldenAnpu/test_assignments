@@ -42,4 +42,5 @@ The script should work as follows:
 6. Debugging/Testing: 
 7. Refactoring: 
 8. Preparing report: 
+
 Overall max: 
