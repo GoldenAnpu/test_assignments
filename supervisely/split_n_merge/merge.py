@@ -5,7 +5,7 @@ import numpy as np
 import shutil
 from split import create_dir
 
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.INFO)
 
 
 def clean_output_dirs():
