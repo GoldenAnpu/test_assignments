@@ -53,8 +53,8 @@ It is necessary to **verify** that the **pixels** in the resulting image match t
 18. Saves the image and checks the difference between the source file from "input" and the saved one.
 
 ### Results and Thoughts
-* For the **4**th paragraph, it would be great to add a check for files that OpenCV can handle.
-* For the **5**th paragraph, it would be great to add a switch to choose how to use parameters for the rest of the images.
+* For the **4**th step from above paragraph, it would be great to add a check for files that OpenCV can handle.
+* For the **5**th step from above paragraph, it would be great to add a switch to choose how to use parameters for the rest of the images.
 * Add an option to choose the sliding window type (with or without a border) and implement it in both the split and merge scripts.
 * Add directory cleanup for the "output_split" folder to avoid errors when merging:
   * On every run of "split.py", make it possible to inspect fragments after merging.
@@ -71,5 +71,6 @@ It is necessary to **verify** that the **pixels** in the resulting image match t
 6. Debugging/Testing: 40-60 minutes
 7. Refactoring: 50 minutes
 8. Preparing report: 40 minutes
+
 Overall max: 315 minutes = 5.25 hours
 
