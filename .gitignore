@@ -9,5 +9,5 @@ supervisely/split_n_merge/output_split
 supervisely/davis_visualizer/input
 supervisely/davis_visualizer/output
 supervisely/dauto_clouds/output
-supervisely/dauto_clouds/data
+supervisely/dauto_clouds/input
 asyncio_downloader
