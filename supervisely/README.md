@@ -8,4 +8,5 @@
 #### Reports
  - [Split and Merge](split_n_merge/README.md)
  - [DAVIS dataset visualizer](davis_visualizer/README.md)
+ - [Isolated point clouds](dauto_clouds/README.md)
 
