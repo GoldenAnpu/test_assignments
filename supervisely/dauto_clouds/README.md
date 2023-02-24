@@ -27,7 +27,7 @@ The script should work as follows:
  - <a href="https://github.com/kuixu/kitti_object_vis/blob/12ce0a2348f6e1405c502bf32e51d76d3a970396/kitti_util.py">kitty_util.py</a>
 
 
-#### How extractor.py works
+#### How points_extractor.py works
 1. Creates folders named "input" and "output".
 2. Waits for input data to be placed in the "input" folder from the archives of the KITTI3D dataset. **NOTE:** Please, define the scene files in variables.
 3. Loads source points from .bin, calibration information, and labeling information from .txt as a list of Object3D.
