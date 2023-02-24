@@ -36,7 +36,8 @@ The script should work as follows:
 6. Converts every cuboid from camera coordinates into velocity coordinates.
 7. Extracts all 'Car' points that are inside the cuboids and saves them in the output .bin file for that 'Car'.
 
-Checkout file kitty_utils.py into main dir using link from **Packages**
+Checkout file kitty_utils.py into main dir using link from **Packages** if it doesn't exist
+
 To check the results, you can replace input "{scene_number}.bin" with output "car_n.bin", rename it with the scene number, and visualize it. 
 
 
